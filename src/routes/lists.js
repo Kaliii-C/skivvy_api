@@ -78,4 +78,18 @@ router.post("/add", async (req, res, next) => {
     }
   });
 
+  router.get("/all", async (req, res, next) => {
+    try{
+      const lists = await List.find({}).populate('tasks').lean();
+  
+      return res.json({
+        lists
+      });
+    } catch (error) {
+      res.json({
+        error: "Something went wrong",
+      })
+    }
+  })
+
   module.exports = router;
