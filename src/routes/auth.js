@@ -23,7 +23,7 @@ router.post("/register", async (req, res, next) => {
   
       if (user) {
         return res.status(400).json({
-          message: "User with this email address already exists"
+          message: "User already exist"
         });
       }
   
@@ -62,7 +62,7 @@ router.post("/register", async (req, res, next) => {
           bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
             if (err) {
               return res.status(401).json({
-                message: "Authentication failed"
+                message: "Invalid password"
               });
             }
   

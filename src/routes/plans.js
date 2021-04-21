@@ -82,4 +82,20 @@ router.post("/share", async (req, res, next) => {
   }
 });
 
+router.post('/get-user-plans', async (req, res, next) => {
+  try {
+    const { userId } = req.body;
+
+    const user = await User.findById(userId).populate('planned');
+
+    return res.status(200).json({
+      user
+    });
+  } catch (error) {
+    return res.json({
+      error: 'Something went wrong'
+    });
+  }
+});
+
 module.exports = router;
