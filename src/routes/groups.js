@@ -109,7 +109,20 @@ router.post("/add-member", async (req, res, next) => {
       error: "Something went wrong",
     })
   }
-})
+});
+
+router.get("/all-users", async (req, res, next) => {
+  try{
+    const users = await User.find({});
+
+    return res.json({
+      users
+    });
+  } catch (error) {
+    res.json({
+      error: "Something went wrong",
+    })}
+  });
 
 
 module.exports = router;

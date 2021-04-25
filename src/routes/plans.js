@@ -86,10 +86,10 @@ router.post('/get-user-plans', async (req, res, next) => {
   try {
     const { userId } = req.body;
 
-    const plans = await Plan.find({owner: userId});
+    plans = await Plan.find({owner: userId});
 
     return res.status(200).json({
-       plans
+      data: plans
     });
   } catch (error) {
     return res.json({

@@ -28,7 +28,7 @@ router.get("/:id?", verifyToken, async (req, res, next) => {
 
 router.get("/all",verifyToken, async (req, res, next) => {
   try{
-    const users = await User.find({_id: { $ne: req.data.userId},}).populate('lists','plans','groups').lean();
+    const users = await User.find({_id: { $ne: req.data.userId},}).populate('lists','planned','groups');
 
     return res.json({
       users
@@ -38,7 +38,7 @@ router.get("/all",verifyToken, async (req, res, next) => {
       error: "Something went wrong",
     })
   }
-})
+});
 
 
 router.post("/find-by-name", async (req, res) => {

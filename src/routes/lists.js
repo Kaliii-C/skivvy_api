@@ -21,10 +21,7 @@ router.post("/add", async (req, res, next) => {
   
       await user.save();
   
-      const updatedUser = await User.findById(userId).populate("lists");
-  
       return res.status(201).json({
-        userData: updatedUser,
         message: "List added succesfully",
       });
     } catch (error) {
@@ -90,6 +87,21 @@ router.post("/add", async (req, res, next) => {
         error: "Something went wrong",
       })
     }
-  })
+  });
+
+  router.post("/user-list", async (req, res, next) => {
+    try{
+      const {userId} = req.body;
+      const lists = await User.findById(userId).populate({path: 'lists', populate: 'items'});
+ 
+      return res.status(200).json({
+      lists
+      });
+    } catch (error) {
+      res.json({
+        error: "Something went wrong",
+      })
+    }
+  });
 
   module.exports = router;
